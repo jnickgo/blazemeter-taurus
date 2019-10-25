@@ -1,0 +1,37 @@
+execution:
+- concurrency: 50
+  ramp-up: 1m
+  hold-for: 5m
+  scenario: simple-travel-agency
+  locations:
+    us-east-2: 1
+
+scenarios:
+  simple-travel-agency:
+    script: simple-travel-agency-recorded.jmx
+
+reporting:
+- module: console
+- module: final-stats
+  summary: true  # overall samples count and percent of failures
+  percentiles: true  # display average times and percentiles
+  summary-labels: true # provides list of sample labels, status, percentage of completed, avg time and errors
+  failed-labels: false  # provides list of sample labels with failures
+  test-duration: true  # provides test duration
+  dump-xml: load-test-results.xml
+  dump-csv: load-test-results.csv
+
+provisioning: cloud
+
+modules:
+  cloud:
+    token: '**********:***********' # cloud credentials overwritten by properties/env variables
+    project: MoT Demos  # project name or id
+    test: Taurus Test  # test name
+    report-name: Load Test    # name of report
+    timeout: 10s  # BlazeMeter API client timeout
+    browser-open: none  # auto-open browser on test start/end/both/none
+    check-interval: 5s  # interval which Taurus uses to query test status from BlazeMeter
+    public-report: false  # make test report public, disabled by default
+    send-report-email: false  # send report email once test is finished, disabled by default
+    request-logging-limit: 10240 # use this to dump more of request/response data into logs, for debugging

@@ -1,0 +1,189 @@
+---
+execution:
+- concurrency: 1
+  iterations: 1
+  ramp-up: 60s
+  scenario: Thread Group
+scenarios:
+  Thread Group:
+    data-sources:
+    - delimiter: ','
+      loop: true
+      path: /flights.csv
+      quoted: false
+      variable-names: fromPort,toPort
+    default-address: http://www.blazedemo.com/
+    requests:
+    - do:
+      - follow-redirects: true
+        headers:
+          Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+          Accept-Encoding: gzip, deflate
+          Accept-Language: en-US,en;q=0.5
+          Upgrade-Insecure-Requests: '1'
+          User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0
+        label: 20 Landing Page-0
+        method: GET
+        url: http://blazedemo.com/
+      - follow-redirects: true
+        headers:
+          Accept: '*/*'
+          Accept-Encoding: gzip, deflate
+          Accept-Language: en-US,en;q=0.5
+          Referer: http://blazedemo.com/
+          User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0
+        label: 20 Landing Page-1
+        method: GET
+        url: http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js
+      - follow-redirects: true
+        headers:
+          Accept: text/css,*/*;q=0.1
+          Accept-Encoding: gzip, deflate
+          Accept-Language: en-US,en;q=0.5
+          Referer: http://blazedemo.com/
+          User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0
+        label: 20 Landing Page-2
+        method: GET
+        url: http://blazedemo.com/assets/bootstrap-table.css
+      - follow-redirects: true
+        headers:
+          Accept: '*/*'
+          Accept-Encoding: gzip, deflate
+          Accept-Language: en-US,en;q=0.5
+          Referer: http://blazedemo.com/
+          User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0
+        label: 20 Landing Page-3
+        method: GET
+        url: http://blazedemo.com/assets/bootstrap.min.js
+      - follow-redirects: true
+        headers:
+          Accept: '*/*'
+          Accept-Encoding: gzip, deflate
+          Accept-Language: en-US,en;q=0.5
+          Referer: http://blazedemo.com/
+          User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0
+        label: 20 Landing Page-4
+        method: GET
+        url: http://blazedemo.com/assets/bootstrap-table.js
+      - follow-redirects: true
+        headers:
+          Accept: text/css,*/*;q=0.1
+          Accept-Encoding: gzip, deflate
+          Accept-Language: en-US,en;q=0.5
+          Referer: http://blazedemo.com/
+          User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0
+        label: 20 Landing Page-5
+        method: GET
+        url: http://blazedemo.com/assets/bootstrap.min.css
+      - follow-redirects: true
+        headers:
+          Accept: image/webp,*/*
+          Accept-Encoding: gzip, deflate
+          Accept-Language: en-US,en;q=0.5
+          User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0
+        label: 20 Landing Page-7
+        method: GET
+        url: http://blazedemo.com/favicon.ico
+      include-timers: false
+      transaction: 01 Landing Page
+    - do:
+      - body:
+          fromPort: ${fromPort}
+          toPort: ${toPort}
+        follow-redirects: true
+        headers:
+          Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+          Accept-Encoding: gzip, deflate
+          Accept-Language: en-US,en;q=0.5
+          Content-Type: application/x-www-form-urlencoded
+          Referer: http://blazedemo.com/
+          Upgrade-Insecure-Requests: '1'
+          User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0
+        label: 29 Find Flights-0
+        method: POST
+        url: http://blazedemo.com/reserve.php
+      - follow-redirects: true
+        headers:
+          Accept: '*/*'
+          Accept-Encoding: gzip, deflate
+          Accept-Language: en-US,en;q=0.5
+          Cache-Control: no-cache
+          Pragma: no-cache
+          User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0
+        label: 29 Find Flights-1
+        method: GET
+        url: http://detectportal.firefox.com/success.txt
+      include-timers: false
+      transaction: 02 Find Flights
+    - do:
+      - body:
+          airline: Lufthansa
+          flight: '4346'
+          fromPort: Paris
+          price: '233.98'
+          toPort: Buenos+Aires
+        follow-redirects: true
+        headers:
+          Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+          Accept-Encoding: gzip, deflate
+          Accept-Language: en-US,en;q=0.5
+          Content-Type: application/x-www-form-urlencoded
+          Referer: http://blazedemo.com/reserve.php
+          Upgrade-Insecure-Requests: '1'
+          User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0
+        label: 31 Choose Flights-0
+        method: POST
+        url: http://blazedemo.com/purchase.php
+      include-timers: false
+      transaction: 03 Choose Flights
+    - do:
+      - follow-redirects: true
+        headers:
+          Accept: '*/*'
+          Accept-Encoding: gzip, deflate
+          Accept-Language: en-US,en;q=0.5
+          Cache-Control: no-cache
+          Pragma: no-cache
+          User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0
+        label: 32 Purchase Flight-0
+        method: GET
+        url: http://detectportal.firefox.com/success.txt
+      include-timers: false
+      transaction: 04 Purchase Flight
+    - do:
+      - body:
+          _token: ''
+          address: Newby
+          cardType: visa
+          city: Hawkins
+          creditCardMonth: '11'
+          creditCardNumber: ''
+          creditCardYear: ${ccExpYear}
+          inputName: Bob
+          nameOnCard: Bob Newby
+          state: IN
+          zipCode: '39283'
+        content-encoding: UTF-8
+        follow-redirects: true
+        headers:
+          Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+          Accept-Encoding: gzip, deflate
+          Accept-Language: en-US,en;q=0.5
+          Content-Type: application/x-www-form-urlencoded
+          Referer: http://blazedemo.com/purchase.php
+          Upgrade-Insecure-Requests: '1'
+          User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0
+        label: 33 Purchase Flight-0
+        method: POST
+        url: http://blazedemo.com/confirmation.php
+      include-timers: false
+      transaction: 05 Purchase Flight
+    store-cache: false
+    store-cookie: true
+    use-dns-cache-mgr: false
+    variables:
+      ccExpYear: ${__time(${__time(yyyy)},ccExpYear)}
+      ccNumber: '37285637847562372'
+      host: www.example.com
+      scheme: https
+

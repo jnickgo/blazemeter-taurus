@@ -1,0 +1,23 @@
+---
+execution:
+- concurrency: 1
+  iterations: 1
+  ramp-up: 60s
+  scenario: Thread Group
+scenarios:
+  Thread Group:
+    requests:
+    - follow-redirects: true
+      jsr223:
+      - compile-cache: 'true'
+        execute: before
+        language: groovy
+        parameters: null
+        script-text: vars.put("path") = "index.php"
+      label: HTTP Request
+      method: GET
+      url: http://www.blazedemo.com${path}
+    store-cache: false
+    store-cookie: false
+    use-dns-cache-mgr: false
+

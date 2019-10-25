@@ -1,0 +1,7 @@
+execution:
+- executor: jmeter
+  concurrency: 5
+  hold-for: 1m
+  scenario:
+    script: SimpleTravelAPI.xml  # SoapUI project
+    test-case: ReserveFlight # name of SoapUI test case to use

@@ -1,0 +1,259 @@
+modules:
+  nose:
+    ignore-unknown-actions: true
+
+execution:
+- executor: selenium
+  scenario: SIMPLE_TRAVEL_AGENCY-Selenium
+  blazegrid: true
+  
+  capabilities: 
+    browserName: chrome
+  hold-for: 20m
+
+- executor: jmeter
+  scenario: SIMPLE_TRAVEL_AGENCY
+  concurrency: 20
+  ramp-up: 1m
+  hold-for: 3m
+
+scenarios:
+  SIMPLE_TRAVEL_AGENCY:
+    headers:
+      User-Agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36'
+    requests:
+      - transaction: Test
+        force-parent-sample: true
+        do:
+          - url: 'http://www.blazedemo.com/index.php'
+            method: GET
+            label: 'http://www.blazedemo.com/index.php'
+            think-time: 0ms
+            headers:
+              Upgrade-Insecure-Requests: '1'
+              Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3'
+          - url: 'http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js'
+            method: GET
+            label: 'http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js'
+            headers:
+              Accept: '*/*'
+          - url: 'http://www.blazedemo.com/assets/bootstrap.min.js'
+            method: GET
+            label: 'http://www.blazedemo.com/assets/bootstrap.min.js'
+            headers:
+              Accept: '*/*'
+          - url: 'http://www.blazedemo.com/assets/bootstrap-table.js'
+            method: GET
+            label: 'http://www.blazedemo.com/assets/bootstrap-table.js'
+            headers:
+              Accept: '*/*'
+          - url: 'https://js-agent.newrelic.com/nr-1130.min.js'
+            method: GET
+            label: 'https://js-agent.newrelic.com/nr-1130.min.js'
+            headers:
+              Sec-Fetch-Mode: no-cors
+              Accept: '*/*'
+          - url: 'https://bam.nr-data.net/1/338cffe5d3'
+            method: GET
+            label: 'https://bam.nr-data.net/1/338cffe5d3'
+            headers:
+              Sec-Fetch-Mode: no-cors
+              Accept: '*/*'
+            body:
+              a: '6657625'
+              v: 1130.54e767a
+              to: YVxSYxACCxcEVRFfWlgWcVQWCgoKSg==
+              rst: '619'
+              ref: 'http://www.blazedemo.com/index.php'
+              ap: '10'
+              be: '369'
+              fe: '590'
+              dc: '451'
+              perf: '{"timing":{"of":1571736321102,"n":0,"u":153,"ue":153,"f":0,"dn":0,"dne":0,"c":0,"ce":0,"rq":2,"rp":150,"rpe":151,"dl":156,"di":450,"ds":450,"de":454,"dc":589,"l":590,"le":591},"navigation":{"ty":1}}'
+              fp: '477'
+              fcp: '477'
+              at: TRtRFVgYGBk=
+              jsonp: NREUM.setToken
+      - transaction: Choose Flights
+        force-parent-sample: true
+        do:
+          - url: 'http://www.blazedemo.com/reserve.php'
+            method: POST
+            label: 'http://www.blazedemo.com/reserve.php'
+            think-time: 13040ms
+            headers:
+              Origin: 'http://www.blazedemo.com'
+              Upgrade-Insecure-Requests: '1'
+              Content-Type: application/x-www-form-urlencoded
+              Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3'
+            body:
+              fromPort: Paris
+              toPort: Buenos Aires
+          - url: 'http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js'
+            method: GET
+            label: 'http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js'
+            headers:
+              Accept: '*/*'
+          - url: 'http://www.blazedemo.com/assets/bootstrap.min.js'
+            method: GET
+            label: 'http://www.blazedemo.com/assets/bootstrap.min.js'
+            headers:
+              Accept: '*/*'
+          - url: 'http://www.blazedemo.com/assets/bootstrap-table.js'
+            method: GET
+            label: 'http://www.blazedemo.com/assets/bootstrap-table.js'
+            headers:
+              Accept: '*/*'
+          - url: 'https://js-agent.newrelic.com/nr-1130.min.js'
+            method: GET
+            label: 'https://js-agent.newrelic.com/nr-1130.min.js'
+            headers:
+              Sec-Fetch-Mode: no-cors
+              Accept: '*/*'
+          - url: 'https://bam.nr-data.net/1/338cffe5d3'
+            method: GET
+            label: 'https://bam.nr-data.net/1/338cffe5d3'
+            headers:
+              Sec-Fetch-Mode: no-cors
+              Accept: '*/*'
+            body:
+              a: '6657625'
+              v: 1130.54e767a
+              to: YVxSYxACCxcEVRFfWlgWcVQWCgoKSkQARVBET1UZEgsV
+              rst: '753'
+              ref: 'http://www.blazedemo.com/reserve.php'
+              ap: '8'
+              be: '391'
+              fe: '723'
+              dc: '572'
+              perf: '{"timing":{"of":1571736334762,"n":0,"u":159,"ue":160,"f":4,"dn":4,"dne":4,"c":4,"ce":4,"rq":6,"rp":156,"rpe":157,"dl":162,"di":570,"ds":571,"de":577,"dc":722,"l":722,"le":724},"navigation":{}}'
+              fp: '596'
+              fcp: '596'
+              at: TRtRFVgYGBk=
+              jsonp: NREUM.setToken
+      - transaction: Choose Flight
+        force-parent-sample: true
+        do:
+          - url: 'http://www.blazedemo.com/purchase.php'
+            method: POST
+            label: 'http://www.blazedemo.com/purchase.php'
+            think-time: 12225ms
+            headers:
+              Origin: 'http://www.blazedemo.com'
+              Upgrade-Insecure-Requests: '1'
+              Content-Type: application/x-www-form-urlencoded
+              Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3'
+            body:
+              airline: Aer Lingus
+              flight: '9696'
+              fromPort: Paris
+              price: '200.98'
+              toPort: Buenos Aires
+          - url: 'http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js'
+            method: GET
+            label: 'http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js'
+            headers:
+              Accept: '*/*'
+          - url: 'http://www.blazedemo.com/assets/bootstrap.min.js'
+            method: GET
+            label: 'http://www.blazedemo.com/assets/bootstrap.min.js'
+            headers:
+              Accept: '*/*'
+          - url: 'http://www.blazedemo.com/assets/bootstrap-table.js'
+            method: GET
+            label: 'http://www.blazedemo.com/assets/bootstrap-table.js'
+            headers:
+              Accept: '*/*'
+          - url: 'https://js-agent.newrelic.com/nr-1130.min.js'
+            method: GET
+            label: 'https://js-agent.newrelic.com/nr-1130.min.js'
+            headers:
+              Sec-Fetch-Mode: no-cors
+              Accept: '*/*'
+          - url: 'https://bam.nr-data.net/1/338cffe5d3'
+            method: GET
+            label: 'https://bam.nr-data.net/1/338cffe5d3'
+            headers:
+              Sec-Fetch-Mode: no-cors
+              Accept: '*/*'
+            body:
+              a: '6657625'
+              v: 1130.54e767a
+              to: YVxSYxACCxcEVRFfWlgWcVQWCgoKSkYQRFZeWENSTBMNFA==
+              rst: '645'
+              ref: 'http://www.blazedemo.com/purchase.php'
+              ap: '10'
+              be: '378'
+              fe: '610'
+              dc: '456'
+              perf: '{"timing":{"of":1571736347738,"n":0,"u":167,"ue":167,"f":5,"dn":5,"dne":5,"c":5,"ce":5,"rq":8,"rp":163,"rpe":164,"dl":170,"di":456,"ds":456,"de":464,"dc":610,"l":611,"le":613},"navigation":{}}'
+              fp: '481'
+              fcp: '481'
+              at: TRtRFVgYGBk=
+              jsonp: NREUM.setToken
+      - transaction: Submit Payment
+        force-parent-sample: true
+        do:
+          - url: 'http://www.blazedemo.com/confirmation.php'
+            method: POST
+            label: 'http://www.blazedemo.com/confirmation.php'
+            think-time: 35127ms
+            headers:
+              Origin: 'http://www.blazedemo.com'
+              Upgrade-Insecure-Requests: '1'
+              Content-Type: application/x-www-form-urlencoded
+              Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3'
+            body:
+              _token: ''
+              address: 123 Main St.
+              cardType: visa
+              city: Kansas City
+              creditCardMonth: '11'
+              creditCardNumber: '12038302029'
+              creditCardYear: '2020'
+              inputName: John G
+              nameOnCard: John G
+              state: MO
+              zipCode: '64155'
+          - url: 'http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js'
+            method: GET
+            label: 'http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js'
+            headers:
+              Accept: '*/*'
+          - url: 'http://www.blazedemo.com/assets/bootstrap.min.js'
+            method: GET
+            label: 'http://www.blazedemo.com/assets/bootstrap.min.js'
+            headers:
+              Accept: '*/*'
+          - url: 'http://www.blazedemo.com/assets/bootstrap-table.js'
+            method: GET
+            label: 'http://www.blazedemo.com/assets/bootstrap-table.js'
+            headers:
+              Accept: '*/*'
+          - url: 'https://js-agent.newrelic.com/nr-1130.min.js'
+            method: GET
+            label: 'https://js-agent.newrelic.com/nr-1130.min.js'
+            headers:
+              Sec-Fetch-Mode: no-cors
+              Accept: '*/*'
+          - url: 'https://bam.nr-data.net/1/338cffe5d3'
+            method: GET
+            label: 'https://bam.nr-data.net/1/338cffe5d3'
+            headers:
+              Sec-Fetch-Mode: no-cors
+              Accept: '*/*'
+            body:
+              a: '6657625'
+              v: 1130.54e767a
+              to: YVxSYxACCxcEVRFfWlgWcVQWCgoKSlUKWFNfS11WFgoKCktGDUY=
+              rst: '622'
+              ref: 'http://www.blazedemo.com/confirmation.php'
+              ap: '9'
+              be: '379'
+              fe: '591'
+              dc: '443'
+              perf: '{"timing":{"of":1571736383510,"n":0,"u":160,"ue":160,"f":5,"dn":5,"dne":5,"c":5,"ce":5,"rq":7,"rp":157,"rpe":158,"dl":163,"di":443,"ds":443,"de":449,"dc":590,"l":591,"le":593},"navigation":{}}'
+              fp: '473'
+              fcp: '473'
+              at: TRtRFVgYGBk=
+              jsonp: NREUM.setToken
